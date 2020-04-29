@@ -59,7 +59,6 @@ export default {
             var _this = this;
             this.$refs[formName].validate((valid) => {
                 if(valid){
-                    console.log("点击登录按钮")
                     var params = new URLSearchParams();
                     params.append('username',this.ruleForm.username);
                     params.append('password',this.ruleForm.password);
@@ -73,7 +72,6 @@ export default {
                             var username = res.data.data.user.username;
                             var nickname = res.data.data.nickname;
                             var authorization = res.headers.authorization;
-                            console.log(authorization);
                             _this.changeLogin({Authorization: authorization,username:username,nickname:nickname})
                             this.$router.push('/helloWorld');
                         }else{
@@ -82,9 +80,14 @@ export default {
                     }).catch(error => {
                         console.log("登录错误"+error);
                     });
+                } else {
+                    console.log('error submit!!');
+                    return false;
                 }
-            })
-
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
 }

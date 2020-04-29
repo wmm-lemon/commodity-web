@@ -20,6 +20,9 @@
         <el-menu-item style="text-align:center" index="4-1" @click="logout()">退出</el-menu-item>
       </el-submenu>
     </el-menu>
+    <div style="margin-top:20px">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -28,9 +31,23 @@ export default {
   data () {
     return {
       username:localStorage.getItem('username')+"|"+localStorage.getItem('nickname'),
+      activeIndex: '',
+      activeIndex2: ''
     }
   },
   methods:{
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+      if(key==='1'){
+        this.$router.push('/createCode');
+      } else if(key==='2-1'){
+        this.$router.push('/getVersion');
+      } else if(key==='2-2'){
+        this.$router.push('/setVersion');
+      } else if(key==='3'){
+        this.$router.push('/listPerson');
+      }
+    },
     logout(){
       this.$confirm('确认退出吗？','提示',{
         confirmButtonText:'确定',

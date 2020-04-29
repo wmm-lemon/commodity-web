@@ -31,7 +31,8 @@ axios.interceptors.request.use(
     if(config.url==='/login'){  //如果是登录和注册操作，则不需要携带header里面的token
     }else{
       if (localStorage.getItem('Authorization')) {
-        config.headers.Authorizatior = localStorage.getItem('Authorization');
+        console.log("异步请求前在header里加入token"+localStorage.getItem('Authorization'));
+        config.headers.Authorization = localStorage.getItem('Authorization');
       }
     }
     return config;
