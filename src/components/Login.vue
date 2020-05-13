@@ -79,6 +79,7 @@ export default {
                         }
                     }).catch(error => {
                         console.log("登录错误"+error);
+                        alert("服务器错误！");
                     });
                 } else {
                     console.log('error submit!!');

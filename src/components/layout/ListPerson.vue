@@ -81,7 +81,42 @@ export default {
         },
         goBack() {
             this.$router.go(-1);
-        }
+        },
+        getlistExport: function(){
+            this.$axios.get('/person/getlistExport', {
+                params: {
+                    nameParam:this.nameParam
+                }
+            })
+            .then((response) => {
+                console.log(response);
+                if(response.data.data!=null){
+                    this.export2Excel(response.data.data);
+                }
+                
+            })
+            .catch((error) => {
+                console.log(error);
+                //this.$router.push("/");
+            });
+        },
+        export2Excel(list){
+          require.ensure([], () => {
+            const { export_json_to_excel } = require('../../vendor/Export2Excel');
+            //头
+            const tHeader = [ '姓名', '电话', '公司','邮箱','类型','时间'];
+            //对应的标签
+            const filterVal = ['username', 'phone', 'company', 'email', 'type', 'createtime'];
+            //标签对应的内容  是一个数组结构            
+            //const list = this.tableData;
+            //一个方法 我也不知道干嘛的
+            const data = this.formatJson(filterVal, list);
+            export_json_to_excel(tHeader, data, '列表excel');
+          })
+        },
+        formatJson(filterVal, jsonData){
+            return jsonData.map(v => filterVal.map(j => v[j]))
+        },
     }
 }
 </script>

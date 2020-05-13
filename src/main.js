@@ -16,11 +16,16 @@ Vue.prototype.$axios= axios
 
 import store from './store'
 
+import Blob from './vendor/Blob'
+import Export2Excel from './vendor/Export2Excel.js'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
+  Blob,
+  Export2Excel,
   components: { App },
   template: '<App/>'
 })
